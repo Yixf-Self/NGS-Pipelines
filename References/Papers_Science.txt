@@ -9,6 +9,10 @@
 3. Roger B. Deal, Jorja G. Henikoff, Steven Henikoff. (2010).   
    Genome-Wide Kinetics of Nucleosome Turnover Determined by Metabolic Labeling of Histones. 
    Science, 328(5982), 1161-1164.  
+   
+4. Watanabe S, Radman-Livaja M, Rando OJ, Peterson CL. (2013). 
+   A histone acetylation switch regulates H2A.Z deposition by the SWR-C remodeling enzyme. 
+   Science. 2013 Apr 12; 340(6129):195-9. 
  
 
  
