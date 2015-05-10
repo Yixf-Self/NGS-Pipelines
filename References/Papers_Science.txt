@@ -5,5 +5,10 @@
 2. Michael F. Dion, Tommy Kaplan, Minkyu Kim, Stephen Buratowski, Nir Friedman, Oliver J. Rando. (2007).    
    Dynamics of Replication-Independent Histone Turnover in Budding Yeast.
    Science, 315(5817):1405-1408.
+   
+3. Roger B. Deal, Jorja G. Henikoff, Steven Henikoff. (2010).   
+   Genome-Wide Kinetics of Nucleosome Turnover Determined by Metabolic Labeling of Histones. 
+   Science, 328(5982), 1161-1164.  
+ 
 
  
