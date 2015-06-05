@@ -1,8 +1,8 @@
-**1. SRA Toolkit**                            
+1. SRA Toolkit                            
     https://github.com/ncbi/sratoolkit,                              
     http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=software&m=software&s=software
-**2. Trimmomatic**                      
+2. Trimmomatic                      
     http://www.usadellab.org/cms/?page=trimmomatic
-**3. NGS QC Toolkit**                                 
+3. NGS QC Toolkit                               
    http://www.nipgr.res.in/ngsqctoolkit.html
    
