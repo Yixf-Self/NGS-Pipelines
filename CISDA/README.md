@@ -1,5 +1,5 @@
 
-    Naming Rules of Files:
+    Rules for NGS pipeline:
 
     1. In one folder, there is only one group input.
 
@@ -9,6 +9,7 @@
 
        For instance: 
        H3K27ac_CM_Adult_HeLab_Rep1.fastq,   Input_CM_Adult_HeLab_Rep1.fastq,    MethylC_CM_Adult_SRR1040648_Rep1_2.fastq,    RNA_CM_p10_Enhancer_Rep1_Lane1.fastq.bz2
+       H3K4me3_CM_adult_SRR1040924_Rep1.sra
 
     3. The first step of all scripts is checking file name by using regular expression: 
          m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])(_?)([1-2]?)\.(\w+)$/
@@ -25,8 +26,22 @@
 
 
 
-    Names of Folder:
-        1-SRA/1-CompressedFastq, 2-FASTQ, 3-Filtered, 4-Mapping, 5-SortMapped, 6-FinalBAM, 7-OtherForamts, 8-MACS14, 9-MACS2, 10-HOMER, 11-
 
 
+    Suggesting Names of Folder:
+        1-SRA or 1-CompressedFastq, 
+        2-FASTQ, 
+        3-Filtered, 
+        4-Mapping,      (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+        5-SortMapped,   (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)
+        6-FinalBAM,     (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+        7-OtherForamts, (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+        8-GenomeCov,    (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)
+        9-MACS14,       (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+        10-MACS2,       (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+        11-HOMER,       (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+        12-DANPOS,      (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)  
+        13-HTSeq,       (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)  
+        14-PathWayGO,   (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
+ 
 
