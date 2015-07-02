@@ -1,5 +1,5 @@
 
-    Rules for NGS pipeline:
+    Rules for pipeline CISDA:
 
     1. In one folder, there is only one group input.
 
@@ -45,3 +45,4 @@
         14-PathWayGO,   (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2) 
  
 
+                                                                    
