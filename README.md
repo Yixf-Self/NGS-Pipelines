@@ -1,5 +1,5 @@
 # NucleosomeTurnover
-All my source codes in the project aboult nucleosome turnover in mouse adult cardiomyocytes.
+##All my source codes for next generation (second generation) sequencing data analysis.
                                                              
 CISDA:  ChIP-Seq Data Analyzer                                          
 MESDA: MethylC-Seq Data Analyzer                                       
