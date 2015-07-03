@@ -418,7 +418,7 @@ for (my $i=0; $i<=$#pairedEnd; $i=$i+2) {
         if ($phredScore == 64) {$phr="--phred64-quals"; }else{ ($phredScore == 33) or die; }  
         print  "\n\nphredScore: $phredScore\n";
         print  "phr: $phr\n\n\n";
-        system("Bowtie   --threads 12   -q  --sam -n 2   -e 70   -l 28   -m 1    $phr   mm9-genome    -1 $input_g/$end1.fastq   -2 $input_g/$end2.fastq     $Bowtie1/$temp.sam   >>$Bowtie1/$temp.runLog   2>&1");       
+        system("bowtie   --threads 12   -q  --sam -n 2   -e 70   -l 28   -m 1    $phr   mm9-genome    -1 $input_g/$end1.fastq   -2 $input_g/$end2.fastq     $Bowtie1/$temp.sam   >>$Bowtie1/$temp.runLog   2>&1");       
 }
 for (my $i=0; $i<=$#singleEnd; $i++) {   
         $singleEnd[$i] =~ m/^(\w+_\w+_\w+_\w+_Rep[1-9])\.fastq$/   or  die; 
