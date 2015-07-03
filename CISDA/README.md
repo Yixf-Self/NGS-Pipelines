@@ -2,7 +2,7 @@
 ## CISDA is a Pipeline for Single-end and Paired-end ChIP-seq Data Analysis by Integrating Lots of Softwares.                                   
     Rules for pipeline CISDA:
 
-    1. In one folder, there is only one group input.
+    1. In one folder, there is only one input file.
 
     2. File name: 
        Target_Space_Time_Other_RepNum(_[1-2]).xxx, (6 or 7 parts, RepNum means biological replicates, [1-2] is 1 or 2 for paired-end reads).
