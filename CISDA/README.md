@@ -21,7 +21,9 @@
 
     5. For biological replicats, "Target_Space_Time_Other_" are same, only "RepNum" is different.
 
-    6. For Paired end files, only "(_[1-2])" is different.
+    6. For Paired end files, only "(_[1-2])" is different.                        
+                                                                                  
+    7. Input files:  "Target" must be "input".  input_Space_Time_Other_RepNum(_[1-2]).xxx                        
                                                          
                                                                       
     Suggesting Names of Folder:                          
