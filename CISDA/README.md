@@ -1,5 +1,5 @@
 # Welcome to use CISDA (ChIp-Seq Data Analyzer), version 0.4.0, 2015-07-02.                      
-#CISDA is a Pipeline for Single-end and Paired-end ChIP-seq Data Analysis by Integrating Lots of Softwares.                                   
+## CISDA is a Pipeline for Single-end and Paired-end ChIP-seq Data Analysis by Integrating Lots of Softwares.                                   
     Rules for pipeline CISDA:
 
     1. In one folder, there is only one group input.
@@ -42,4 +42,8 @@
         15-featureCount, (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)                
         16-GO,           (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)                     
         17-PathWay,      (subfolder: 1-Subread, 2-BWA-aln, 3-BWA-mem, 4-Bowtie1, 5-Bowtie2)                  
-                                                            
+                                                                                                      
+                                                                                                                     
+                                                                                                                      
+                                                                                                                      
+                                                                                                                      
