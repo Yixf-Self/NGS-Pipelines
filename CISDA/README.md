@@ -1,7 +1,7 @@
 # Welcome to use CISDA (ChIp-Seq Data Analyzer), version 0.4.2, 2015-07-18.                      
 ## CISDA is a Pipeline for Single-end and Paired-end ChIP-seq Data Analysis by Integrating Lots of Softwares.          
-    startFastq  for starting from compressed FASTQ files                 
-    startSRA for starting from SRA files              
+    ###"startFastq"  for starting from compressed FASTQ files                 
+    ###"startSRA" for starting from SRA files              
                             
     ------------------------------------------------------------------------------------------------------------
     Rules for NGS pipeline CISDA:
