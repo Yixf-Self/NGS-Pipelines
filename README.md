@@ -1,7 +1,7 @@
 # NGS-Pipelines                          
 ##Perl source codes for next generation (second generation) sequencing data analysis by integrating lots of open-source softwares.
                                                              
-CISDA: ChIP-Seq Data Analyzer (contains MNase-seq, DNase-seq, ChIP-exo, etc.)                                        
+CISDA: ChIP-Seq Data Analyzer (also contains MNase-seq, DNase-seq, ChIP-exo and all ChIPseq-like data.)                                  
 MESDA: MethylC-Seq Data Analyzer                                       
 RASDA: RNA-Seq Data Analyzer                   
                                                                
