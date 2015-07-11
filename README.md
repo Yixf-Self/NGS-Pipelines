@@ -24,11 +24,11 @@ RASDA: RNA-Seq Data Analyzer
 10. SAMtools, http://www.htslib.org/            
 11. BEDtools, https://github.com/arq5x/bedtools2/releases                                
 12. BEDOPS, http://bedops.readthedocs.org/en/latest/                
-13. Deeptools: http://deeptools.github.io/                     
-14. MACS1.4: http://liulab.dfci.harvard.edu/MACS/         
-15. MACS2: https://github.com/taoliu/MACS/                
-16. HOMER: http://homer.salk.edu/homer/                
-17. DANPOS: code.google.com/p/danpos/                
+13. Deeptools, http://deeptools.github.io/                     
+14. MACS1.4, http://liulab.dfci.harvard.edu/MACS/         
+15. MACS2, https://github.com/taoliu/MACS/                
+16. HOMER, http://homer.salk.edu/homer/                
+17. DANPOS, http://code.google.com/p/danpos/                
 
 
 
