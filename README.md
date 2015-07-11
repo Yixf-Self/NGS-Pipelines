@@ -3,11 +3,15 @@
                                                              
 CISDA: ChIP-Seq Data Analyzer                                          
 MESDA: MethylC-Seq Data Analyzer                                       
-RASDA: RNA-Seq Data Analyzer                                 
+RASDA: RNA-Seq Data Analyzer                   
+                                                               
+                                                               
+  All the scripts are  fully tested and pass my quality inspection on Ubuntu and CentOS.                  
                                                
                                                              
                                                                          
-## Required Softwares:                                    
+## These softwares must be available in your Linux OS: 
+0. Perl, https://www.perl.org/                 
 1. NCBI SRA Toolkit, http://www.ncbi.nlm.nih.gov/Traces/sra/                                
 2. FastQC, http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 3. Trimmomatic, http://www.usadellab.org/cms/?page=trimmomatic                   
