@@ -6,7 +6,7 @@ MESDA: MethylC-Seq Data Analyzer
 RASDA: RNA-Seq Data Analyzer                   
                                                                
                                                                
-  All the scripts are  fully tested and pass my quality inspection on Ubuntu and CentOS.                  
+  All the scripts have been fully tested and passed my quality inspection on Ubuntu and CentOS.                  
                                                
                                                              
                                                                          
