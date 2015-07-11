@@ -6,17 +6,18 @@ use warnings;
 
 
 
-###################################################################################################################################################################################################
-###################################################################################################################################################################################################
 
+
+###################################################################################################################################################################################################
+###################################################################################################################################################################################################
 
 ########## Help Infromation ##########
 my $HELP_g = '
-        Welcome to use CISDA (ChIp-Seq Data Analyzer), version 0.4.0, 2015-07-02.    
+        Welcome to use CISDA (ChIp-Seq Data Analyzer), version 0.4.2, 2015-07-18.    
         CISDA is a Pipeline for Single-end and Paired-end ChIP-seq Data Analysis by Integrating Lots of Softwares.
 
-        Step 1: Convert SRA format into FASTQ format,  and quality statistics by using FastQC, NGS_QC_Toolkit and FASTX-Toolkit.
-                Required softwares in this step: SRAtoolKit, FastQC, NGS_QC_Toolkit and FASTX-Toolkit.
+        Step 1: Convert SRA format into FASTQ format,  and assess the quality of the raw reads to identify possible
+                sequencing errors or biases by using FastQC, NGS_QC_Toolkit and FASTX-Toolkit.
   
         Usage: 
                perl  CISDA-1-SRA.pl    [-v]    [-h]    [-i inputDir]    [-o outDir]  
@@ -24,6 +25,7 @@ my $HELP_g = '
         For instance: 
                      perl  CISDA-1-SRA.pl    -i 1-SRA          -o 2-FASTQ           
                      perl  CISDA-1-SRA.pl    --input 1-SRA     --output 2-FASTQ    
+                     perl  CISDA-1-SRA.pl    --input 1-SRA     --output 2-FASTQ    >> 1-runLog.txt 2>&1
  
         
         ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,21 +38,23 @@ my $HELP_g = '
 
         Required arguments:
 
-        -i inputDir,  --input inputDir        inputDir is the name of input folder that contains your SRA files,
-                                              the suffix of the SRA files must be ".sra".    (no default)
+        -i inputDir,  --input inputDir        inputDir is the name of your input folder that contains your SRA files,
+                                              the suffix of all SRA files must be ".sra".    (no default)
 
-        -o outDir,  --output outDir           outDir is the name of output folder that contains your running 
+        -o outDir,  --output outDir           outDir is the name of your output folder that contains your running 
                                               results (fastq format) of this step.      (no default)
-                                              The suffix of two paired-end sequencing files: "XXX_1.fastq"  and   "XXX_2.fastq"                            
         ----------------------------------------------------------------------------------------------------------------------------------------------
 
+ 
+        For more details about this pipeline, please see the web site:
+        https://github.com/bigdataage/NGS-Pipelines
 
-        Yong Peng @ He lab, yongpeng@email.com, Academy for Advanced Interdisciplinary Studies 
+        Yong Peng @ He lab, yongp@outlook.com, Academy for Advanced Interdisciplinary Studies 
         and Center for Life Sciences (CLS), Peking University, China.     
   
 ';
 
-my $version_g = "    CISDA (ChIp-Seq Data Analyzer), version 0.4.0, 2015-07-02.";
+my $version_g = "    CISDA (ChIp-Seq Data Analyzer), version 0.4.2, 2015-07-18.";
 
 
 ########## Keys and Values #################
@@ -68,11 +72,11 @@ my $output_g = '2-FASTQ';   ## This is only an initialization  value or suggesti
 my $available = "  -v  --version    -h  --help    -i  --input    -o    --output  ";
 my $boole_g = 0;
 while( my ($key, $value) = each %args ) {
-    if($available !~ m/\s$key\s/) {print  "    Cann't recognize $key\n";  $boole_g = 1; }
+    if($available !~ m/\s$key\s/) {print  "    Cann't recognize $key !!\n";  $boole_g = 1; }
 }
 if($boole_g == 1) {
     print "\n    The Command Line Arguments are wrong!\n";
-    print '    Please see help message by using "perl  CISDA-1-SRA.pl  -h" ';
+    print   '    Please see help message by using "perl  CISDA-1-SRA.pl  -h". ';
     print "\n\n";
     exit 0;
 }
@@ -90,7 +94,6 @@ $input_g  =~ m/^\S+$/    ||  die   "\n$HELP_g\n\n";
 $output_g =~ m/^\S+$/    ||  die   "\n$HELP_g\n\n";
 
 
-
 ######### Print Command Arguments to Standard Output ###########
 print  "\n\n
         ################ Your Arguments ###############################
@@ -99,19 +102,8 @@ print  "\n\n
         ###############################################################  
 \n\n";
 
-
 ###################################################################################################################################################################################################
 ###################################################################################################################################################################################################
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -125,16 +117,18 @@ my @inputFiles = readdir($DH_input);
 
 
 
+
 print "\n\n        Converting SRA files into FASTQ files......";
 for ( my $i=0; $i<=$#inputFiles; $i++ ) {     
         next unless $inputFiles[$i] =~ m/\.sra$/;
         next unless $inputFiles[$i] !~ m/^[.]/;
         next unless $inputFiles[$i] !~ m/[~]$/;
         my $temp = $inputFiles[$i]; 
-        $temp =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])\.sra$/   or  die;
+        $temp =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])\.sra$/   or  die;
         $temp =~ s/\.sra$//  ||  die;
-        system("fastq-dump   --split-3   --dumpbase    $input_g/$inputFiles[$i]      --outdir  $output_g      >> $output_g/$temp.runLog  2>&1");
+        system("fastq-dump   --split-3   --dumpbase   $input_g/$inputFiles[$i]  --outdir $output_g   >> $output_g/$temp.runLog  2>&1");
 }
+
 
 
 
@@ -150,14 +144,14 @@ for ( my $i=0; $i<=$#outputFiles; $i++ ) {
     next unless $outputFiles[$i] !~ m/^[.]/;
     next unless $outputFiles[$i] !~ m/^unpaired/;
     next unless $outputFiles[$i] !~ m/[~]$/;
-    if ($outputFiles[$i] =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])\.fastq$/) {   ## Sinlge end sequencing files.
-        $outputFiles[$i] =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])\.fastq$/  or  die;  
+    if ($outputFiles[$i] =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])\.fastq$/) {   ## Sinlge end sequencing files.
+        $outputFiles[$i] =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])\.fastq$/  or  die;  
         $singleEnd[$#singleEnd+1] =  $outputFiles[$i];
         print  "\n\n        Single-end sequencing files: $outputFiles[$i]\n";
         print seqFiles_FH  "Single-end sequencing files: $outputFiles[$i]\n";
     }else{     ## paired end sequencing files.
-        $outputFiles[$i] =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])_([1-2])\.fastq$/  or  die; 
-        if ($outputFiles[$i] =~ m/^(\w+_\w+_\w+_\w+_Rep[1-9])_1\.fastq$/) { ## The two files of one paired sequencing sample are always side by side. 
+        $outputFiles[$i] =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])_([1-2])\.fastq$/  or  die; 
+        if ($outputFiles[$i] =~ m/^(\S+_\S+_\S+_\S+_Rep[1-9])_1\.fastq$/) { ## The two files of one paired sequencing sample are always side by side. 
             my $temp = $1;
             my $end1 = $temp."_1.fastq";
             my $end2 = $temp."_2.fastq";
@@ -174,20 +168,15 @@ for ( my $i=0; $i<=$#outputFiles; $i++ ) {
 print  seqFiles_FH  "\n\n\n\n\n";
 print  seqFiles_FH  "All single-end sequencing files:  @singleEnd\n\n\n\n\n\n";
 print  seqFiles_FH  "All paired-end sequencing files:  @pairedEnd\n\n\n\n\n\n";
-print  "\n\n";
-print  "\n\n        All single-end sequencing files:  @singleEnd\n\n";
-print  "\n\n        All paired-end sequencing files:  @pairedEnd\n\n";
+print   "\n\n";
+print   "\n\n        All single-end sequencing files:  @singleEnd\n\n";
+print   "\n\n        All paired-end sequencing files:  @pairedEnd\n\n";
 my $numSingle = $#singleEnd + 1;
 my $numPaired = $#pairedEnd + 1;
 print seqFiles_FH   "\nThere are $numSingle single-end sequencing files.\n";
 print seqFiles_FH   "\nThere are $numPaired paired-end sequencing files.\n";
 print     "\n\n        There are $numSingle single-end sequencing files.\n";
 print     "\n\n        There are $numPaired paired-end sequencing files.\n";
-
-
-
-
-
 
 
 
@@ -208,13 +197,53 @@ if ( !( -e $FASTXtoolkit)    )   { mkdir $FASTXtoolkit     ||  die; }
 
 
 
+
+
+
+
+
+
+
+print "\n\n        Compute number of reads based on number of lines......";
+my @outputFiles_sort = sort(@outputFiles);
+my @numreads = ();
+for ( my $i=0; $i<=$#outputFiles_sort; $i++ ) {     
+    next unless $outputFiles_sort[$i] =~ m/\.fastq$/;
+    next unless $outputFiles_sort[$i] !~ m/^[.]/;
+    next unless $outputFiles_sort[$i] !~ m/[~]$/;
+    my $temp = $outputFiles_sort[$i]; 
+    $temp =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])(_?)([1-2]?)\.fastq$/   or  die;
+    $temp =~ s/\.fastq$//  ||  die;
+    open(TEMP_FH, "<",  "$output_g/$outputFiles_sort[$i]")  or  die;
+    my @lines = <TEMP_FH>;
+    my $numLines = @lines;
+    $numLines = $numLines/4;
+    $numreads[$#numreads+1] = "$temp\t$numLines";
+}
+open(NumReads_FH,  ">", "$output_g/2-NumberOfReads.xlsx" )  or  die;
+print  NumReads_FH    "Samples\t#Reads\n";
+for(my $i=0; $i<=$#numreads; $i=$i+1) {
+    print  NumReads_FH    "$numreads[$i]\n";
+}
+
+
+
+
+
+
+
+
+
+
+
 print "\n\n        Detecting the quality of single-end FASTQ files by using FastQC......";
 for ( my $i=0; $i<=$#singleEnd; $i++ ) {     
     my $temp = $singleEnd[$i]; 
-    $temp =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])\.fastq$/   or  die;
+    $temp =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])\.fastq$/   or  die;
     $temp =~ s/\.fastq$//  ||  die;
-    system( "fastqc    --outdir $FastQCdir   --threads 10    --kmers 7     $output_g/$temp.fastq       >> $FastQCdir/$temp.runLog   2>&1" );  
+    system( "fastqc   --outdir $FastQCdir  --threads 16  --kmers 7   $output_g/$temp.fastq   >> $FastQCdir/$temp.runLog   2>&1" );  
 } 
+
 
 
 
@@ -223,12 +252,12 @@ print "\n\n        Detecting the quality of paired-end FASTQ files by using Fast
 for ( my $j=0; $j<=$#pairedEnd; $j=$j+2 ) {     
     my $temp1 = $pairedEnd[$j]; 
     my $temp2 = $pairedEnd[$j+1]; 
-    $temp1 =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])_1\.fastq$/   or  die;
-    $temp2 =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])_2\.fastq$/   or  die;
+    $temp1 =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])_1\.fastq$/   or  die;
+    $temp2 =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])_2\.fastq$/   or  die;
     $temp1 =~ s/\.fastq$//  ||  die;
     $temp2 =~ s/\.fastq$//  ||  die;
-    system( "fastqc    --outdir $FastQCdir   --threads 10    --kmers 7     $output_g/$temp1.fastq       >> $FastQCdir/$temp1.runLog   2>&1" );  
-    system( "fastqc    --outdir $FastQCdir   --threads 10    --kmers 7     $output_g/$temp2.fastq       >> $FastQCdir/$temp2.runLog   2>&1" );  
+    system( "fastqc    --outdir $FastQCdir   --threads 16    --kmers 7     $output_g/$temp1.fastq       >> $FastQCdir/$temp1.runLog   2>&1" );  
+    system( "fastqc    --outdir $FastQCdir   --threads 16    --kmers 7     $output_g/$temp2.fastq       >> $FastQCdir/$temp2.runLog   2>&1" );  
     print  seqFiles_FH  "\n\nquality statistics: $temp1,  $temp2\n";
     my $temp = $temp1;
     $temp =~ s/_1$//  ||  die;
@@ -239,21 +268,23 @@ for ( my $j=0; $j<=$#pairedEnd; $j=$j+2 ) {
    
 
  
+
 print "\n\n        Detecting the quality of all FASTQ files by using FastQC, NGS_QC_Toolkit and FASTX-Toolkit......";
 for ( my $i=0; $i<=$#outputFiles; $i++ ) {     
     next unless $outputFiles[$i] =~ m/\.fastq$/;
     next unless $outputFiles[$i] !~ m/^[.]/;
     next unless $outputFiles[$i] !~ m/[~]$/;
     my $temp = $outputFiles[$i]; 
-    $temp =~ m/^(\w+)_(\w+)_(\w+)_(\w+)_(Rep[1-9])(_?)([1-2]?)\.fastq$/   or  die;
+    $temp =~ m/^(\S+)_(\S+)_(\S+)_(\S+)_(Rep[1-9])(_?)([1-2]?)\.fastq$/   or  die;
     $temp =~ s/\.fastq$//  ||  die;
-    system( "fastqc    --outdir $FastQCdir_10mer    --threads 10    --kmers 10    $output_g/$temp.fastq       >> $FastQCdir_10mer/$temp.runLog   2>&1" );  
+    system( "fastqc    --outdir $FastQCdir_10mer    --threads 16    --kmers 10    $output_g/$temp.fastq       >> $FastQCdir_10mer/$temp.runLog   2>&1" );  
     if ( !(-e "$NGSQCToolkit/$temp") )   { mkdir  "$NGSQCToolkit/$temp"  ||  die; }
     system( "IlluQC.pl  -se $output_g/$temp.fastq   N  A    -processes 10   -onlyStat    -outputFolder $NGSQCToolkit/$temp                >> $NGSQCToolkit/$temp/$temp.runLog   2>&1" );      
     system( "fastx_quality_stats                        -i $output_g/$temp.fastq                    -o $FASTXtoolkit/$temp.txt            >> $FASTXtoolkit/$temp.runLog   2>&1" ); 
     system( "fastq_quality_boxplot_graph.sh             -i $FASTXtoolkit/$temp.txt     -t $temp     -o $FASTXtoolkit/$temp.quality.png    >> $FASTXtoolkit/$temp.runLog   2>&1" ); 
     system( "fastx_nucleotide_distribution_graph.sh     -i $FASTXtoolkit/$temp.txt     -t $temp     -o $FASTXtoolkit/$temp.nucDis.png     >> $FASTXtoolkit/$temp.runLog   2>&1" ); 
 }
+
 
 
 
