@@ -10,7 +10,7 @@ RASDA: RNA-Seq Data Analyzer
                                                
                                                              
 ---------------------------------------------------------------------------------------------                                                                     
-## These softwares (the recent version) must be available in your Linux OS: 
+## The recent versions of these softwares must be available in your Linux OS: 
 0. Perl, https://www.perl.org/                 
 1. NCBI SRA Toolkit, http://www.ncbi.nlm.nih.gov/Traces/sra/                                
 2. FastQC, http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
