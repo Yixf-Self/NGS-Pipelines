@@ -46,6 +46,9 @@ my $HELP_g = '
         ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+        For more details about this pipeline, please see the web site:
+        https://github.com/bigdataage/NGS-Pipelines
+
         Yong Peng @ He lab, yongp@outlook.com, Academy for Advanced Interdisciplinary Studies 
         and Center for Life Sciences (CLS), Peking University, China.     
   
